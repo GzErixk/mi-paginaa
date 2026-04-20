@@ -1,0 +1,268 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOS LUGARES QUE HE CONOCIDO</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI';
+    background:#0a0a0a;
+    color:white;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+    background:#111;
+    border-bottom:2px solid #00ffcc;
+    position:relative;
+}
+
+.menu{
+    position:absolute;
+    left:15px;
+    font-size:25px;
+    cursor:pointer;
+}
+
+header h2{
+    color:#00ffcc;
+    text-shadow:0 0 15px #00ffcc;
+}
+
+/* MENU */
+.sidebar{
+    position:fixed;
+    left:-250px;
+    width:250px;
+    height:100%;
+    background:#000;
+    padding:20px;
+    transition:0.3s;
+}
+.sidebar.active{left:0;}
+.sidebar a{
+    display:block;
+    margin:15px 0;
+    color:#00ffcc;
+}
+
+/* BUSCADOR */
+.search{
+    width:90%;
+    margin:15px auto;
+    display:block;
+    padding:10px;
+    border-radius:10px;
+    background:#1a1a1a;
+    color:white;
+}
+
+/* CARDS */
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+    padding:20px;
+}
+
+.card{
+    background:#111;
+    border-radius:15px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.4s;
+}
+.card:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px #00ffcc;
+}
+.card img{width:100%;height:180px;object-fit:cover;}
+.card h3{text-align:center;color:#00ffcc;}
+
+/* MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+    background:#111;
+    border-radius:15px;
+    box-shadow:0 0 25px #00ffcc;
+    animation:zoomIn 0.3s;
+}
+
+.close{
+    float:right;
+    cursor:pointer;
+    font-size:25px;
+}
+
+@keyframes zoomIn{
+    from{transform:scale(0.7);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+</style>
+
+<script>
+function toggleMenu(){
+    document.getElementById("menu").classList.toggle("active");
+}
+
+function openModal(id){
+    document.getElementById(id).style.display="flex";
+}
+
+function closeModal(id){
+    document.getElementById(id).style.display="none";
+}
+
+window.onclick = function(event){
+    let modals = document.getElementsByClassName("modal");
+    for(let i=0;i<modals.length;i++){
+        if(event.target === modals[i]){
+            modals[i].style.display="none";
+        }
+    }
+}
+
+function buscar(){
+    let input=document.getElementById("buscador").value.toLowerCase();
+    let cards=document.getElementsByClassName("card");
+    for(let i=0;i<cards.length;i++){
+        let text=cards[i].innerText.toLowerCase();
+        cards[i].style.display=text.includes(input)?"block":"none";
+    }
+}
+</script>
+
+</head>
+
+<body>
+
+<header>
+<div class="menu" onclick="toggleMenu()">☰</div>
+<h2>LOS LUGARES QUE HE CONOCIDO</h2>
+</header>
+
+<div id="menu" class="sidebar">
+<a onclick="location.reload()">🔄 Recargar</a>
+<a>❌ Salir</a>
+</div>
+
+<input id="buscador" onkeyup="buscar()" class="search" placeholder="Buscar lugar...">
+
+<div class="container">
+
+<div class="card" onclick="openModal('acapulco')">
+<img src="img/acapulco (2).jpeg">
+<h3>ACAPULCO</h3>
+</div>
+
+<div class="card" onclick="openModal('playa')">
+<img src="img/carmen (2).jpeg">
+<h3>PLAYA DEL CARMEN</h3>
+</div>
+
+<div class="card" onclick="openModal('momias')">
+<img src="img/momias(2).jpg">
+<h3>MOMIAS DE GUANAJUATO</h3>
+</div>
+
+<div class="card" onclick="openModal('grutas')">
+<img src="img/grutas (2).jpeg">
+<h3>GRUTAS LA ESTRELLA</h3>
+</div>
+
+<div class="card" onclick="openModal('cera')">
+<img src="img/cera.jpeg">
+<h3>MUSEO DE CERA</h3>
+</div>
+
+<div class="card" onclick="openModal('inquisicion')">
+<img src="img/inquicision.jpeg">
+<h3>MUSEO DE LA INQUISICIÓN</h3>
+</div>
+
+</div>
+
+<!-- MODALES -->
+
+<div id="acapulco" class="modal"><div class="modal-content">
+<span class="close" onclick="closeModal('acapulco')">✖</span>
+<h2>ACAPULCO</h2>
+<p>Ubicado en Guerrero, es un destino clásico de playa con mucha vida nocturna y actividades.</p>
+<h3>✅ PROS</h3><ul><li>Playas bonitas</li><li>Ambiente divertido</li></ul>
+<h3>❌ CONTRAS</h3><ul><li>Calor intenso</li><li>Puede ser caro</li></ul>
+<h3>💰 PRECIOS</h3><p>$100-$300 comida | actividades $200-$600</p>
+<h3>⭐ RECOMENDACIÓN</h3><p>Sí, perfecto para vacaciones si controlas gastos.</p>
+</div></div>
+
+<div id="playa" class="modal"><div class="modal-content">
+<span class="close" onclick="closeModal('playa')">✖</span>
+<h2>PLAYA DEL CARMEN</h2>
+<p>Destino turístico con playas turquesa y ambiente moderno.</p>
+<h3>✅ PROS</h3><ul><li>Playas increíbles</li><li>Mucho ambiente</li></ul>
+<h3>❌ CONTRAS</h3><ul><li>Muy caro</li><li>Turismo excesivo</li></ul>
+<h3>💰 PRECIOS</h3><p>$150-$400 comida | tours desde $500</p>
+<h3>⭐ RECOMENDACIÓN</h3><p>Totalmente recomendado.</p>
+</div></div>
+
+<div id="momias" class="modal"><div class="modal-content">
+<span class="close" onclick="closeModal('momias')">✖</span>
+<h2>MOMIAS DE GUANAJUATO</h2>
+<p>Museo histórico muy impactante y único.</p>
+<h3>✅ PROS</h3><ul><li>Interesante</li><li>Único</li></ul>
+<h3>❌ CONTRAS</h3><ul><li>Puede dar miedo</li></ul>
+<h3>💰 PRECIOS</h3><p>$70-$100 MXN</p>
+<h3>⭐ RECOMENDACIÓN</h3><p>Sí, si te gusta la historia.</p>
+</div></div>
+
+<div id="grutas" class="modal"><div class="modal-content">
+<span class="close" onclick="closeModal('grutas')">✖</span>
+<h2>GRUTAS LA ESTRELLA</h2>
+<p>Un recorrido natural donde ves formaciones increíbles creadas por la naturaleza.</p>
+<h3>✅ PROS</h3><ul><li>Experiencia natural</li><li>Hermoso paisaje</li></ul>
+<h3>❌ CONTRAS</h3><ul><li>Resbaloso</li></ul>
+<h3>💰 PRECIOS</h3><p>$50-$100 MXN</p>
+<h3>⭐ RECOMENDACIÓN</h3><p>Sí, muy recomendado.</p>
+</div></div>
+
+<div id="cera" class="modal"><div class="modal-content">
+<span class="close" onclick="closeModal('cera')">✖</span>
+<h2>MUSEO DE CERA</h2>
+<p>Museo con figuras realistas para fotos.</p>
+<h3>✅ PROS</h3><ul><li>Divertido</li><li>Buenas fotos</li></ul>
+<h3>❌ CONTRAS</h3><ul><li>Recorrido corto</li></ul>
+<h3>💰 PRECIOS</h3><p>$150-$200 MXN</p>
+<h3>⭐ RECOMENDACIÓN</h3><p>Sí, experiencia divertida.</p>
+</div></div>
+
+<div id="inquisicion" class="modal"><div class="modal-content">
+<span class="close" onclick="closeModal('inquisicion')">✖</span>
+<h2>MUSEO DE LA INQUISICIÓN</h2>
+<p>Museo histórico con temática fuerte de la época colonial.</p>
+<h3>✅ PROS</h3><ul><li>Educativo</li><li>Interesante</li></ul>
+<h3>❌ CONTRAS</h3><ul><li>Puede ser fuerte</li></ul>
+<h3>💰 PRECIOS</h3><p>$70-$120 MXN</p>
+<h3>⭐ RECOMENDACIÓN</h3><p>Sí, si te interesa la historia.</p>
+</div></div>
+
+</body>
+</html>
